@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Gift For You 💝</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Nunito', sans-serif; background: linear-gradient(135deg, #1a0010 0%, #3d0030 40%, #1a0010 100%); min-height: 100vh; overflow-x: hidden; position: relative; }
+  .hearts-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+  .heart-particle { position: absolute; font-size: 20px; opacity: 0; animation: floatHeart linear infinite; }
+  @keyframes floatHeart { 0% { transform: translateY(100vh) rotate(0deg); opacity: 0.6; } 100% { transform: translateY(-100px) rotate(360deg); opacity: 0; } }
+
+  #page1 { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; position: relative; z-index: 1; padding: 20px; }
+  .gift-scene { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; }
+  .gift-label { font-family: 'Dancing Script', cursive; color: #ffb3d9; font-size: 22px; letter-spacing: 1px; margin-bottom: 10px; margin-top: -80px; text-shadow: 0 0 20px rgba(255,100,160,0.6); animation: glow 2s ease-in-out infinite alternate; }
+  @keyframes glow { from { text-shadow: 0 0 10px rgba(255,100,160,0.4); } to { text-shadow: 0 0 30px rgba(255,100,160,0.9), 0 0 50px rgba(255,50,130,0.5); } }
+
+  .gift-box-wrapper { position: relative; width: 200px; height: 220px; }
+  .gift-lid { position: absolute; top: 0; left: -10px; width: 220px; height: 65px; background: linear-gradient(135deg, #ff3399, #cc0066); border-radius: 8px; z-index: 3; transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.8s; transform-origin: top center; box-shadow: 0 4px 20px rgba(255,50,150,0.5); }
+  .gift-lid::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 30px; height: 65px; background: linear-gradient(135deg, #ff69b4, #ff1493); border-radius: 4px; }
+  .lid-bow { position: absolute; top: -22px; left: 50%; transform: translateX(-50%); width: 80px; height: 44px; z-index: 4; }
+  .bow-left, .bow-right { position: absolute; width: 36px; height: 36px; border-radius: 50% 0 50% 0; background: linear-gradient(135deg, #ff69b4, #ff1493); top: 0; box-shadow: 0 2px 10px rgba(255,20,147,0.5); }
+  .bow-left { left: 0; transform: rotate(-45deg); }
+  .bow-right { right: 0; transform: rotate(45deg); }
+  .bow-center { position: absolute; width: 18px; height: 18px; background: #ff1493; border-radius: 50%; top: 9px; left: 50%; transform: translateX(-50%); z-index: 5; box-shadow: 0 0 10px rgba(255,20,147,0.8); }
+  .gift-body { position: absolute; bottom: 0; left: 0; width: 200px; height: 165px; background: linear-gradient(135deg, #cc0055, #990044); border-radius: 0 0 12px 12px; z-index: 2; box-shadow: 0 10px 30px rgba(150,0,70,0.6); }
+  .gift-body::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 28px; height: 100%; background: linear-gradient(135deg, #ff69b4, #ff1493); opacity: 0.8; }
+  .gift-body::after { content: '🎁'; position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); font-size: 40px; opacity: 0.3; }
+  .click-hint { margin-top: 20px; font-family: 'Dancing Script', cursive; color: #ffb3d9; font-size: 18px; animation: bounce 1.5s ease-in-out infinite; }
+  @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+  #letterOverlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(20,0,15,0.85); z-index: 100; align-items: center; justify-content: center; padding: 20px; animation: fadeInOverlay 0.5s ease; overflow-y: auto; }
+  @keyframes fadeInOverlay { from { opacity: 0; } to { opacity: 1; } }
+  .letter-card { background: linear-gradient(160deg, #fff5f9 0%, #ffe0ee 100%); border-radius: 20px; padding: 40px 35px; max-width: 600px; width: 100%; position: relative; box-shadow: 0 20px 80px rgba(255,20,147,0.4), 0 0 0 2px rgba(255,100,180,0.3); animation: popUp 0.6s cubic-bezier(0.175,0.885,0.32,1.275); margin: auto; }
+  @keyframes popUp { from { transform: scale(0.3) rotate(-5deg); opacity: 0; } to { transform: scale(1) rotate(0deg); opacity: 1; } }
+  .letter-hearts { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; font-size: 24px; animation: heartBeat 1s ease-in-out infinite; }
+  @keyframes heartBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+  .letter-text { font-size: 15px; line-height: 1.9; color: #5a0035; text-align: center; font-weight: 600; white-space: pre-wrap; margin-bottom: 30px; }
+  .letter-divider { border: none; border-top: 2px dashed #ffb3d9; margin: 25px 0; }
+  .question-text { font-family: 'Dancing Script', cursive; font-size: 26px; color: #cc0066; text-align: center; margin-bottom: 25px; text-shadow: 0 2px 10px rgba(255,0,100,0.3); }
+  .buttons-row { display: flex; justify-content: center; align-items: center; gap: 25px; flex-wrap: wrap; position: relative; min-height: 60px; }
+  .btn-yes { background: linear-gradient(135deg, #ff3399, #cc0066); color: white; border: none; padding: 14px 35px; border-radius: 50px; font-size: 18px; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; box-shadow: 0 6px 25px rgba(255,50,150,0.5); transition: transform 0.2s, box-shadow 0.2s; letter-spacing: 0.5px; }
+  .btn-yes:hover { transform: scale(1.08); box-shadow: 0 10px 35px rgba(255,50,150,0.7); }
+  .btn-no { background: transparent; color: #cc0066; border: 2px solid #ff99cc; padding: 14px 35px; border-radius: 50px; font-size: 18px; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; transition: left 0.15s, top 0.15s; position: static; white-space: nowrap; }
+
+  #page2 { display: none; min-height: 100vh; position: relative; z-index: 1; padding: 40px 20px; flex-direction: column; align-items: center; }
+  .page2-header { text-align: center; margin-bottom: 50px; animation: fadeInDown 1s ease; }
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+  .page2-title { font-family: 'Dancing Script', cursive; font-size: 48px; color: #ffb3d9; text-shadow: 0 0 30px rgba(255,100,180,0.8); margin-bottom: 10px; }
+  .page2-subtitle { color: #ff99cc; font-size: 18px; font-weight: 600; }
+  .photos-container { display: flex; flex-direction: column; gap: 60px; width: 100%; max-width: 520px; align-items: center; }
+
+  .photo-slot { position: relative; width: 320px; height: 320px; animation: fadeSlideIn 0.8s ease both; }
+  .photo-slot:nth-child(1) { animation-delay: 0.1s; }
+  .photo-slot:nth-child(2) { animation-delay: 0.3s; }
+  .photo-slot:nth-child(3) { animation-delay: 0.5s; }
+  .photo-slot:nth-child(4) { animation-delay: 0.7s; }
+  .photo-slot:nth-child(5) { animation-delay: 0.9s; }
+  @keyframes fadeSlideIn { from { opacity: 0; transform: translateY(40px) scale(0.8); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+  .heart-frame {
+    position: relative;
+    width: 320px;
+    height: 300px;
+    filter: drop-shadow(0 8px 30px rgba(255,20,147,0.6));
+    transition: transform 0.3s, filter 0.3s;
+  }
+  .heart-frame:hover {
+    transform: scale(1.06);
+    filter: drop-shadow(0 12px 40px rgba(255,20,147,0.9));
+  }
+  .heart-frame svg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+  .heart-label {
+    text-align: center;
+    margin-top: 12px;
+    font-family: 'Dancing Script', cursive;
+    color: #ffb3d9;
+    font-size: 20px;
+    text-shadow: 0 0 10px rgba(255,100,180,0.6);
+  }
+  .memory-img { display: none; }
+  .photo-number { display: none; }
+  .final-message { margin-top: 50px; text-align: center; padding: 30px; background: rgba(255,255,255,0.05); border-radius: 20px; border: 1px solid rgba(255,100,180,0.3); max-width: 500px; width: 100%; animation: fadeIn 1s ease 1.5s both; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .final-message p { font-family: 'Dancing Script', cursive; font-size: 28px; color: #ffb3d9; line-height: 1.6; }
+  .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 200; overflow: hidden; }
+  .confetti-piece { position: absolute; width: 10px; height: 10px; top: -20px; animation: confettiFall linear forwards; border-radius: 2px; }
+  @keyframes confettiFall { 0% { transform: translateY(0) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+</style>
+</head>
+<body>
+
+<div class="hearts-bg" id="heartsContainer"></div>
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- PAGE 1 -->
+<div id="page1">
+  <div class="gift-label">✨ Sorry From Ricky ✨</div>
+  <div class="gift-scene" onclick="openGift()">
+    <div class="gift-box-wrapper">
+      <div class="gift-lid" id="giftLid">
+        <div class="lid-bow">
+          <div class="bow-left"></div>
+          <div class="bow-right"></div>
+          <div class="bow-center"></div>
+        </div>
+      </div>
+      <div class="gift-body"></div>
+    </div>
+  </div>
+  <div class="click-hint" onclick="openGift()">💝 Tap to open your gift 💝</div>
+</div>
+
+<!-- LETTER OVERLAY -->
+<div id="letterOverlay">
+  <div class="letter-card">
+    <div class="letter-hearts">💖 💕 💖 💕 💖</div>
+    <div class="letter-text">Libia amma na pannathu periya thapu ma 😔
+
+enna ne romba nambue but na tha chllo onate poi soli onaa yenathu romba kasta paduthite ma .....
+
+chllo enale na pannaetha ethaum ennale mathe mudiyathu chllo....
+
+but inime onaku pudiche mari irrupe chllo ne solrethu ellame kepe chllo innu sathiyama oate poi sola mate chllo .... 🥺🥺
+
+enkau puriuthu amma enoda actoin ona epd hurt panni irrukum nu oh kudave irrunnthu ipd oru peiya thape na pannite ma.....
+
+enaku kadaisi ah ore oru chance mattum tha chllo innu na nalla pathupe chllo ona azha vidamate amma ona epovume sirike vachu pathukure ma ona happyah ha vachukre ma 🫶🏻 ..........
+
+enaku ore oru chance mattu tha chllo plz thango..
+
+ne enku avloo istam chllo ne illme enaku oru naal kuda irruka mudiythu ma....
+
+en life le ona mari oru ponna na pathathe illa ma enkake ne nareyaa vishyam sacrifice panni irruka chlo enale mattume roma kasta pattu irruka chllo.....
+
+enaum oru manushana mathichu enakake yarum inthe azhavaku enna love panna matanga chllo ne tha panne chlllo....
+
+ne thane love care ella enkau en life le kedachathu illa chlllo 🥺
+
+ne en life le vanthe aproo tha chllo enaku love na enna nu purinju ma
+
+but na onaku love ah kudukala thapu pannite cllo innu inthe mistake ah repate panna mate chllo
+
+plz ena nammu ma
+
+enaku ona vit yarum illa chlllo en yuiree ne tha chlllo
+
+innu namme happu ah irrukalam chllo onaku pudiche marii jolly h namme rendu perum irrukalam chlllo ............ 🥹
+
+love so much enoda ladddu kutty 🥰 🫶🏻👸🏻🫂</div>
+
+    <hr class="letter-divider">
+    <div class="question-text">💕 Libia, can you give me a final chance? 💕</div>
+    <div class="buttons-row" id="buttonsRow">
+      <button class="btn-no" id="noBtn" onmouseover="moveNoBtn()" ontouchstart="moveNoBtn()">NO</button>
+      <button class="btn-yes" onclick="goToPage2()">Yes Chello 💖</button>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2">
+  <div class="page2-header">
+    <div class="page2-title">Our Memories 💕</div>
+    <div class="page2-subtitle">Every moment with you is precious, Libia 🥺</div>
+  </div>
+
+  
+  <div class="photos-container">
+
+    <div class="photo-slot">
+      <div class="heart-frame">
+        <svg viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <clipPath id="heart1clip">
+              <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z"/>
+            </clipPath>
+          </defs>
+          <image href="YOUR_PHOTO_1_URL_HERE" x="0" y="0" width="320" height="300" clip-path="url(#heart1clip)" preserveAspectRatio="xMidYMid slice"/>
+          <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z" fill="none" stroke="#ff69b4" stroke-width="3" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="heart-label">💕 💖 💕</div>
+    </div>
+
+    <div class="photo-slot">
+      <div class="heart-frame">
+        <svg viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <clipPath id="heart2clip">
+              <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z"/>
+            </clipPath>
+          </defs>
+          <image href="YOUR_PHOTO_2_URL_HERE" x="0" y="0" width="320" height="300" clip-path="url(#heart2clip)" preserveAspectRatio="xMidYMid slice"/>
+          <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z" fill="none" stroke="#ff69b4" stroke-width="3" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="heart-label">🥰 💗 🥰</div>
+    </div>
+
+    <div class="photo-slot">
+      <div class="heart-frame">
+        <svg viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <clipPath id="heart3clip">
+              <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z"/>
+            </clipPath>
+          </defs>
+          <image href="YOUR_PHOTO_3_URL_HERE" x="0" y="0" width="320" height="300" clip-path="url(#heart3clip)" preserveAspectRatio="xMidYMid slice"/>
+          <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z" fill="none" stroke="#ff69b4" stroke-width="3" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="heart-label">🫶🏻 💝 🫶🏻</div>
+    </div>
+
+    <div class="photo-slot">
+      <div class="heart-frame">
+        <svg viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <clipPath id="heart4clip">
+              <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z"/>
+            </clipPath>
+          </defs>
+          <image href="YOUR_PHOTO_4_URL_HERE" x="0" y="0" width="320" height="300" clip-path="url(#heart4clip)" preserveAspectRatio="xMidYMid slice"/>
+          <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z" fill="none" stroke="#ff69b4" stroke-width="3" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="heart-label">😍 💓 😍</div>
+    </div>
+
+    <div class="photo-slot">
+      <div class="heart-frame">
+        <svg viewBox="0 0 320 300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <defs>
+            <clipPath id="heart5clip">
+              <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z"/>
+            </clipPath>
+          </defs>
+          <image href="YOUR_PHOTO_5_URL_HERE" x="0" y="0" width="320" height="300" clip-path="url(#heart5clip)" preserveAspectRatio="xMidYMid slice"/>
+          <path d="M160,270 C160,270 20,180 20,100 C20,55 55,30 100,30 C125,30 148,45 160,60 C172,45 195,30 220,30 C265,30 300,55 300,100 C300,180 160,270 160,270 Z" fill="none" stroke="#ff69b4" stroke-width="3" opacity="0.8"/>
+        </svg>
+      </div>
+      <div class="heart-label">👸🏻 🌸 👸🏻</div>
+    </div>
+
+  </div>
+
+
+
+  <div class="final-message">
+    <p>You are my everything Libia 💖<br>Thank you for being my Laddu Kutty 👸🏻🫶🏻</p>
+  </div>
+</div>
+
+<script>
+  const heartEmojis = ['💕','💖','💗','💓','💝','🌸','✨'];
+
+  function createHearts() {
+    const container = document.getElementById('heartsContainer');
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => {
+        const heart = document.createElement('div');
+        heart.className = 'heart-particle';
+        heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.fontSize = (14 + Math.random() * 20) + 'px';
+        heart.style.animationDuration = (6 + Math.random() * 8) + 's';
+        heart.style.animationDelay = Math.random() * 5 + 's';
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 14000);
+      }, i * 800);
+    }
+  }
+  setInterval(createHearts, 8000);
+  createHearts();
+
+  function openGift() {
+    const lid = document.getElementById('giftLid');
+    lid.style.transform = 'translateY(-80px) rotate(-15deg)';
+    lid.style.opacity = '0';
+    setTimeout(() => {
+      document.getElementById('letterOverlay').style.display = 'flex';
+    }, 700);
+  }
+
+  function moveNoBtn() {
+    const btn = document.getElementById('noBtn');
+    if (btn.style.position !== 'fixed') {
+      btn.style.position = 'fixed';
+      btn.style.zIndex = '9999';
+    }
+    btn.style.left = Math.floor(Math.random() * (window.innerWidth - 130)) + 20 + 'px';
+    btn.style.top  = Math.floor(Math.random() * (window.innerHeight - 70)) + 20 + 'px';
+    btn.style.right = 'auto';
+    btn.style.bottom = 'auto';
+  }
+
+  function goToPage2() {
+    document.getElementById('letterOverlay').style.display = 'none';
+    document.getElementById('page1').style.display = 'none';
+    document.getElementById('page2').style.display = 'flex';
+    launchConfetti();
+  }
+
+  function launchConfetti() {
+    const container = document.getElementById('confettiContainer');
+    const colors = ['#ff3399','#ff99cc','#ff69b4','#ffb3d9','#cc0066','#ff1493','#fff','#ffd700'];
+    for (let i = 0; i < 120; i++) {
+      setTimeout(() => {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + 'vw';
+        piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.width  = (6 + Math.random() * 10) + 'px';
+        piece.style.height = (6 + Math.random() * 10) + 'px';
+        piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+        piece.style.animationDelay = Math.random() * 1.5 + 's';
+        container.appendChild(piece);
+        setTimeout(() => piece.remove(), 5000);
+      }, i * 30);
+    }
+  }
+</script>
+</body>
+</html>
